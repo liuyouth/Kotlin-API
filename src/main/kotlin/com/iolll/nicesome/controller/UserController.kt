@@ -42,12 +42,10 @@ class UserController {
 //    }
 //
 //    @GetMapping("/get/{name}")
-    @GetMapping("/")
-    fun getByName(model: Model, @PathVariable("name") name: String): String {
+//    fun getByName(model: Model, @PathVariable("name") name: String): String {
 //        val users = repository.findUser(name)
 //        return setModel(model, users)
-    return "index1"
-    }
+//    }
 //
 //    private fun setModel(model: Model, users: List<User>): String {
 //        model.addAttribute("users", users)

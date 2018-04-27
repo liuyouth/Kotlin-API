@@ -1,4 +1,4 @@
-package com._1b2m.springbootkotin
+package com.iolll.nicesome
 
 import org.junit.Test
 import org.junit.runner.RunWith

@@ -20,6 +20,18 @@ class PageController {
         return "reception/index"
     }
 
+    @RequestMapping("/{module}")
+    fun toModule(model: Model, @PathVariable("module") module: String): String {
+        return "reception/$module"
+    }
+
+    @RequestMapping("/{module}/{name}")
+    fun toModuleName(model: Model, @PathVariable("module") module: String,
+                     @PathVariable("name") name: String
+    ): String {
+        return "reception/$module/$name"
+    }
+
     /**
      * 前台首页
      */

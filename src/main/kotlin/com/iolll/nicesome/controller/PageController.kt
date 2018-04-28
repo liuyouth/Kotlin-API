@@ -20,14 +20,36 @@ class PageController {
         return "reception/index"
     }
 
+    @RequestMapping("/{module}")
+    fun toModule(model: Model, @PathVariable("module") module: String): String {
+        return "reception/$module"
+    }
+
+    @RequestMapping("/{module}/{name}")
+    fun toModuleName(model: Model, @PathVariable("module") module: String,
+                     @PathVariable("name") name: String
+    ): String {
+        return "reception/$module/$name"
+    }
+
     /**
-     * 前台首页
+     * 后台首页
      */
     @RequestMapping("/admin")
     fun adminIndex(model: Model): String {
         println("back/index")
         return "back/index"
     }
+    @RequestMapping("/admin/{module}")
+    fun backToModule(model: Model, @PathVariable("module") module: String): String {
+        return "back/$module"
+    }
 
+    @RequestMapping("/admin/{module}/{name}")
+    fun backToModuleName(model: Model, @PathVariable("module") module: String,
+                         @PathVariable("name") name: String
+    ): String {
+        return "back/$module/$name"
+    }
 
 }

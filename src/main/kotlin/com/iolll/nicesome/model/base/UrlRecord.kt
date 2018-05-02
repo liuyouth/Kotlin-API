@@ -8,6 +8,7 @@ import javax.persistence.Id
 @Entity
 data class UrlRecord(@Id @GeneratedValue(strategy = GenerationType.AUTO)
                      val id: Long = 0L,
+                     val userid: Int = 0,
                      val name: String = "",
                      val icon: String = "img/icon_record.png",
                      val type: String = "",

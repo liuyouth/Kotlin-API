@@ -7,9 +7,10 @@ import org.springframework.data.repository.query.Param
 
 interface UrlRecordRepository : CrudRepository<UrlRecord, Long> {
 
-    fun findByLastName(lastName: String): List<UrlRecord>
+    fun findByUserid(userid: String): List<UrlRecord>
 
-    @Query("from urlrecord c where c.type=:type")
-    fun findByType(@Param("type") type: String): List<UrlRecord>
+    @Query("from UrlRecord u where u.type=:type")
+    fun findUrlRecord(@Param("type") type: String): List<UrlRecord>
+
 
 }

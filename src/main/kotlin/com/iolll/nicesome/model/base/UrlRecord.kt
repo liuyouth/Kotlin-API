@@ -7,13 +7,13 @@ import javax.persistence.Id
 
 @Entity
 data class UrlRecord(@Id @GeneratedValue(strategy = GenerationType.AUTO)
-                     val id: Long = 0L,
-                     val userid: Int = 0,
-                     val name: String = "",
-                     val icon: String = "img/icon_record.png",
-                     val type: String = "",
-                     val url: String = "#",
-                     val useNum: Int = 0,
-                     val forkNum: Int = 0,
-                     val starNum: Int = 0
+                     var id: Long = 0L,
+                     var userid: Int = 0,
+                     var name: String = "",
+                     var icon: String? = "img/icon_record.png",
+                     var type: String? = "",
+                     var url: String = "#",
+                     var useNum: Int = 0,
+                     var forkNum: Int = 0,
+                     var starNum: Int = 0
                  )

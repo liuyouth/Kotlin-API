@@ -28,19 +28,23 @@ class UrlRecordController {
              @RequestParam(value = "type", defaultValue = "") type: String,
              @RequestParam(value = "page", defaultValue = "0") page: Int,
              @RequestParam(value = "size", defaultValue = "15") size: Int): PageResult<UrlRecord> {
+        val pageNum = if (page == 0) {
+            0
+        } else {
+            page - 1
+        }
         val sort = Sort(Sort.Direction.ASC, "id")
-        val pageable = PageRequest(page, size, sort)
-        val pageResult: PageResult<UrlRecord> = PageResult()
+        val pageable = PageRequest(pageNum, size, sort)
 
-        val data =  if (isEmpty(name) && isEmpty(type)){
+        val data = if (isEmpty(name) && isEmpty(type)) {
             repository.findAll(pageable)
-        }else if (isEmpty(type)){
+        } else if (isEmpty(type)) {
             repository.findByNameLike(name, pageable)
-        }else{
+        } else {
             repository.findByTypeLike(type, pageable)
         }
 
-        return RBuilder.Seccess(data.toList(),data.totalElements,data.totalPages)
+        return RBuilder.Seccess(data.toList(), data.totalElements, data.totalPages)
 
     }
 

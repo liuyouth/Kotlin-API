@@ -11,11 +11,10 @@ import org.springframework.data.repository.query.Param
 
 interface UrlRecordRepository : CrudRepository<UrlRecord, Long> , PagingAndSortingRepository<UrlRecord,Long> {
 
-    fun findByUserid(userid: String): List<UrlRecord>
-
     @Query("from UrlRecord u where u.type=:type")
     fun findUrlRecord(@Param("type") type: String): List<UrlRecord>
 
     fun findByNameLike(name:String ,page: Pageable):Page<UrlRecord>
     fun findByTypeLike(type:String ,page: Pageable):Page<UrlRecord>
+//    fun findByUser_NameLiKe()
 }

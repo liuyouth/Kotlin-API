@@ -1,9 +1,8 @@
 package com.iolll.nicesome.model.base
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import org.hibernate.annotations.NotFound
+import org.hibernate.annotations.NotFoundAction
+import javax.persistence.*
 
 @Entity
 data class UrlRecord(
@@ -15,11 +14,15 @@ data class UrlRecord(
         /**
          * 归属用户
          */
-        var userid: Int = 0,
+//        var userid: Int = 0,
+        @ManyToOne(optional = true)
+        @NotFound(action = NotFoundAction.IGNORE)
+        @JoinColumn(name = "user_id",foreignKey = ForeignKey(name = "url_for_user"))
+        var user: User? = null,
         /**
          * 姓名
          */
-        var name: String = "",
+        var name: String? = "",
         /**
          * 默认icon
          */

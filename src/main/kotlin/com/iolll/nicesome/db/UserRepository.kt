@@ -6,8 +6,8 @@ import org.springframework.data.repository.CrudRepository
 import org.springframework.data.repository.query.Param
 
 interface UserRepository : CrudRepository<User, Long> {
-    fun findByLastName(lastName: String): List<User>
-
-    @Query("from User u where u.firstName=:name")
-    fun findUser(@Param("name") name: String): List<User>
+//    fun findByLastName(lastName: String): List<User>
+//
+//    @Query("from User u where u.firstName=:name")
+//    fun findUser(@Param("name") name: String): List<User>
 }

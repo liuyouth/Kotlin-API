@@ -27,13 +27,25 @@ class UrlRecordController {
     fun list(@RequestParam(value = "name", defaultValue = "") name: String,
              @RequestParam(value = "type", defaultValue = "") type: String,
              @RequestParam(value = "page", defaultValue = "0") page: Int,
-             @RequestParam(value = "size", defaultValue = "15") size: Int): PageResult<UrlRecord> {
+             @RequestParam(value = "size", defaultValue = "15") size: Int,
+             @RequestParam(value = "sortField", defaultValue = "") filedName: String,
+             @RequestParam(value = "sortOrder", defaultValue = "") sortOrder: String): PageResult<UrlRecord> {
         val pageNum = if (page == 0) {
             0
         } else {
             page - 1
         }
-        val sort = Sort(Sort.Direction.ASC, "id")
+        var sd: Sort.Direction
+        var filedNames: String = filedName
+        when (sortOrder) {
+            "descend" -> sd = Sort.Direction.DESC
+            else -> sd = Sort.Direction.ASC
+        }
+        println(sortOrder + "\n")
+        println(filedName)
+        isEmpty(filedName)
+        filedNames = "id"
+        val sort = Sort(sd, filedNames)
         val pageable = PageRequest(pageNum, size, sort)
 
         val data = if (isEmpty(name) && isEmpty(type)) {

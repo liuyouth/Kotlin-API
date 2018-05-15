@@ -15,6 +15,8 @@ import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.util.StringUtils.isEmpty
 import java.util.ArrayList
+import javax.persistence.EntityManager
+import javax.persistence.PersistenceContext
 
 
 @RestController
@@ -22,12 +24,16 @@ import java.util.ArrayList
 class UrlRecordController {
     @Autowired
     lateinit var repository: UrlRecordRepository
+    @Autowired
+    @PersistenceContext
+    lateinit var entityManager: EntityManager
 
     @GetMapping("/")
     fun list(@RequestParam(value = "name", defaultValue = "") name: String,
              @RequestParam(value = "type", defaultValue = "") type: String,
              @RequestParam(value = "page", defaultValue = "0") page: Int,
              @RequestParam(value = "size", defaultValue = "15") size: Int,
+             @RequestParam(value = "userid", defaultValue = "15") userId: Long,
              @RequestParam(value = "sortField", defaultValue = "") filedName: String,
              @RequestParam(value = "sortOrder", defaultValue = "") sortOrder: String): PageResult<UrlRecord> {
         val pageNum = if (page == 0) {
@@ -43,20 +49,31 @@ class UrlRecordController {
         }
         println(sortOrder + "\n")
         println(filedName)
-        isEmpty(filedName)
-        filedNames = "id"
+        if (isEmpty(filedName))
+            filedNames = "id"
         val sort = Sort(sd, filedNames)
         val pageable = PageRequest(pageNum, size, sort)
+        val data = if (userId==0L) {
 
-        val data = if (isEmpty(name) && isEmpty(type)) {
-            repository.findAll(pageable)
-        } else if (isEmpty(type)) {
-            repository.findByNameLike(name, pageable)
-        } else {
-            repository.findByTypeLike(type, pageable)
+            if (isEmpty(name) && isEmpty(type)) {
+                repository.findAll(pageable)
+            } else if (isEmpty(type)) {
+                repository.findByNameLike(name, pageable)
+            } else {
+                repository.findByTypeLike(type, pageable)
+            }
+        }else{
+             if (isEmpty(name) && isEmpty(type)) {
+                repository.findByUser_id(userId,pageable)
+            } else if (isEmpty(type)) {
+                repository.findByNameLike(name, pageable)
+            } else {
+                repository.findByTypeLike(type, pageable)
+            }
         }
-
-        return RBuilder.Seccess(data.toList(), data.totalElements, data.totalPages)
+        var q = entityManager?.createNativeQuery("select * from url_record", UrlRecord::class.java)
+        var list :List<UrlRecord> = q.resultList.toList() as List<UrlRecord>
+        return RBuilder.Seccess(list, data.totalElements, data.totalPages)
 
     }
 

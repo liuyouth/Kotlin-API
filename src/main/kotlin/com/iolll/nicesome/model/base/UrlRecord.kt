@@ -17,7 +17,7 @@ data class UrlRecord(
 //        var userid: Int = 0,
         @ManyToOne(optional = true)
         @NotFound(action = NotFoundAction.IGNORE)
-        @JoinColumn(name = "user_id",foreignKey = ForeignKey(name = "url_for_user"))
+        @JoinColumn(name = "user_id", foreignKey = ForeignKey(name = "url_for_user"))
         var user: User? = null,
         /**
          * 姓名
@@ -55,4 +55,9 @@ data class UrlRecord(
          * 点赞数量
          */
         var starNum: Int = 0
-)
+
+) {
+    override fun toString(): String {
+        return "UrlRecord(id=$id, user=$user, name=$name, icon=$icon, type=$type, space=$space, url='$url', isOpenAll=$isOpenAll, useNum=$useNum, forkNum=$forkNum, starNum=$starNum)"
+    }
+}

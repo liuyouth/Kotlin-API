@@ -16,5 +16,5 @@ interface UrlRecordRepository : CrudRepository<UrlRecord, Long> , PagingAndSorti
 
     fun findByNameLike(name:String ,page: Pageable):Page<UrlRecord>
     fun findByTypeLike(type:String ,page: Pageable):Page<UrlRecord>
-//    fun findByUser_NameLiKe()
+    fun findByUser_id(id:Long ,page:Pageable):Page<UrlRecord>
 }

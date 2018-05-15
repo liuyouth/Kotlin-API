@@ -13,7 +13,5 @@ data class User(@Id @GeneratedValue(strategy = GenerationType.AUTO)
                 @JsonIgnore
                 var pwd: String = "",
                 @JsonIgnore
-                var salt: String = "",
-                @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
-                var List :List<UrlRecord> ?= ArrayList()
+                var salt: String = ""
                 )

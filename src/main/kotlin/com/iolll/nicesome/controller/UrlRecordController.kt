@@ -17,6 +17,7 @@ import org.springframework.util.StringUtils.isEmpty
 import java.util.ArrayList
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
+import java.math.BigInteger
 
 
 @RestController
@@ -33,7 +34,7 @@ class UrlRecordController {
              @RequestParam(value = "type", defaultValue = "") type: String,
              @RequestParam(value = "page", defaultValue = "0") page: Int,
              @RequestParam(value = "size", defaultValue = "15") size: Int,
-             @RequestParam(value = "userid", defaultValue = "15") userId: Long,
+             @RequestParam(value = "userid", defaultValue = "0") userId: Long,
              @RequestParam(value = "sortField", defaultValue = "") filedName: String,
              @RequestParam(value = "sortOrder", defaultValue = "") sortOrder: String): PageResult<UrlRecord> {
         val pageNum = if (page == 0) {
@@ -41,40 +42,59 @@ class UrlRecordController {
         } else {
             page - 1
         }
-        var sd: Sort.Direction
         var filedNames: String = filedName
-        when (sortOrder) {
-            "descend" -> sd = Sort.Direction.DESC
-            else -> sd = Sort.Direction.ASC
-        }
-        println(sortOrder + "\n")
-        println(filedName)
-        if (isEmpty(filedName))
+        if (isEmpty(filedName) || "null" == filedName)
             filedNames = "id"
-        val sort = Sort(sd, filedNames)
-        val pageable = PageRequest(pageNum, size, sort)
-        val data = if (userId==0L) {
-
-            if (isEmpty(name) && isEmpty(type)) {
-                repository.findAll(pageable)
-            } else if (isEmpty(type)) {
-                repository.findByNameLike(name, pageable)
-            } else {
-                repository.findByTypeLike(type, pageable)
-            }
-        }else{
-             if (isEmpty(name) && isEmpty(type)) {
-                repository.findByUser_id(userId,pageable)
-            } else if (isEmpty(type)) {
-                repository.findByNameLike(name, pageable)
-            } else {
-                repository.findByTypeLike(type, pageable)
-            }
+        var sd = when (sortOrder) {
+            "descend" -> Sort.Direction.DESC
+            else -> Sort.Direction.ASC
         }
-        var q = entityManager?.createNativeQuery("select * from url_record", UrlRecord::class.java)
-        var list :List<UrlRecord> = q.resultList.toList() as List<UrlRecord>
-        return RBuilder.Seccess(list, data.totalElements, data.totalPages)
 
+        var totalSql = getSql("select count(id) from `url_record`", userId, type, filedNames, name, sd, pageNum, size)
+        var query = entityManager?.createNativeQuery(totalSql)
+        val total = query.singleResult as BigInteger
+        var allPage = (total.toInt() / 3)
+
+        var sql = getSql("select * from `url_record`", userId, type, filedNames, name, sd, pageNum, size)
+        var q = entityManager?.createNativeQuery(sql, UrlRecord::class.java)
+        var list: List<UrlRecord> = q.resultList.toList() as List<UrlRecord>
+
+        return RBuilder.Seccess(list, total.toLong(), allPage)
+        //        return RBuilder.Seccess(list, data.totalElements, data.totalPages)
+        //        val sort = Sort(sd, filedNames)
+//        val pageable = PageRequest(pageNum, size, sort)
+//        val data = if (userId==0L) {
+//
+//            if (isEmpty(name) && isEmpty(type)) {
+//                repository.findAll(pageable)
+//            } else if (isEmpty(type)) {
+//                repository.findByNameLike(name, pageable)
+//            } else {
+//                repository.findByTypeLike(type, pageable)
+//            }
+//        }else{
+//             if (isEmpty(name) && isEmpty(type)) {
+//                repository.findByUser_id(userId,pageable)
+//            } else if (isEmpty(type)) {
+//                repository.findByNameLike(name, pageable)
+//            } else {
+//                repository.findByTypeLike(type, pageable)
+//            }
+//        }
+    }
+
+    fun getSql(sqlte: String, userId: Long, type: String, filedNames: String, name: String, sd: Sort.Direction, page: Int, size: Int): String {
+        var sql = sqlte
+        if (userId != 0L)
+            sql += " where user_id =" + userId + " "
+        if (!isEmpty(type))
+            sql += " and type =" + type + " "
+        if (!isEmpty(name))
+            sql += " and name like %" + name + "% "
+        sql += " order by " + filedNames + " " + sd
+        sql += " limit " + page + "," + size
+        println(sql)
+        return sql
     }
 
     @GetMapping("/{id}")
@@ -100,3 +120,4 @@ class UrlRecordController {
 
 
 }
+

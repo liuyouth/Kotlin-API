@@ -3,19 +3,19 @@ package com.iolll.nicesome.model.base
 import java.util.ArrayList
 import java.util.Date
 
-class Result<T> {
+class SearchResult<T> {
 
     private var data: T? = null
     private var code: Int = 0
     private var msg: String? = null
     private var status:Int = 0
-    private var desc:T? = null
+    private var desc:String ?= null
 
-    fun getDesc(): T? {
+    fun getDesc(): String? {
         return desc
     }
 
-    fun setDesc(desc: T): Result<T> {
+    fun setDesc(desc: String): SearchResult<T> {
         this.desc = desc
         return this
     }
@@ -24,7 +24,7 @@ class Result<T> {
         return data
     }
 
-    fun setData(data: T): Result<T> {
+    fun setData(data: T): SearchResult<T> {
         this.data = data
         return this
     }
@@ -33,7 +33,7 @@ class Result<T> {
         return code
     }
 
-    fun setCode(code: Int): Result<T> {
+    fun setCode(code: Int): SearchResult<T> {
         this.code = code
         return this
     }
@@ -42,11 +42,11 @@ class Result<T> {
         return msg
     }
 
-    fun setMsg(msg: String): Result<T> {
+    fun setMsg(msg: String): SearchResult<T> {
         this.msg = msg
         return this
     }
-    fun setStatus(status:Int):Result<T> {
+    fun setStatus(status:Int):SearchResult<T> {
         this.status = status;
         return this;
     }

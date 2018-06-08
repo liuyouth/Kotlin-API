@@ -2,6 +2,12 @@ buildscript {
     ext {
         kotlinVersion = '1.1.3-2'
         springBootVersion = '1.5.4.RELEASE'
+        retrofit2ConverterGsonVersion = '2.1.0'
+        retrofit2AConverterScalarsVersion = '2.0.0'
+        retrofit2AdapterRxjavaVersion = '2.1.0'
+        okhttp3LoggingInterceptorVersion = '3.4.1'
+        rxandroidVersion = '2.0.2'
+        rxjavaVersion = '2.1.8'
     }
     repositories {
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
@@ -11,7 +17,7 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
         classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
     }
-}gx
+}
 
 apply plugin: 'kotlin'
 apply plugin: 'kotlin-spring'
@@ -48,4 +54,12 @@ dependencies {
     compile("mysql:mysql-connector-java")
     //providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
     testCompile('org.springframework.boot:spring-boot-starter-test')
+    //Retrofit 网络请求
+    compile "com.squareup.retrofit2:converter-gson:${retrofit2ConverterGsonVersion}"
+    compile "com.squareup.retrofit2:converter-scalars:${retrofit2AConverterScalarsVersion}"
+    compile "com.squareup.retrofit2:adapter-rxjava:${retrofit2AdapterRxjavaVersion}"
+    compile "com.squareup.okhttp3:logging-interceptor:${okhttp3LoggingInterceptorVersion}"
+    //Rx 函数式编程支持
+    compile "io.reactivex.rxjava2:rxjava:${rxjavaVersion}"
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
 }

@@ -60,4 +60,7 @@ data class UrlRecord(
     override fun toString(): String {
         return "UrlRecord(id=$id, user=$user, name=$name, icon=$icon, type=$type, space=$space, url='$url', isOpenAll=$isOpenAll, useNum=$useNum, forkNum=$forkNum, starNum=$starNum)"
     }
+
+
+
 }

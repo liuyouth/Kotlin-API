@@ -14,10 +14,7 @@ import okhttp3.OkHttpClient
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.util.HashMap
 
 @RestController
@@ -91,10 +88,10 @@ class EchoAPIController {
         })
         return result
     }
-    @GetMapping("/name/{name},{page},{limit}")
-    fun getByName(@PathVariable("name") name: String,
-                  @PathVariable("page") page: Int,
-                  @PathVariable("limit") limit: Int
+    @GetMapping("/name/")
+    fun getByName(@RequestParam("name") name: String,
+                  @RequestParam(value="page", required=true) page :Int,
+                  @RequestParam(value="limit", required=false) limit :Int
     ): SearchResult<ArrayList<EchoSong>> {
         var result: SearchResult<ArrayList<EchoSong>> = SearchResult();
 //        val params = HashMap<String, Any>()

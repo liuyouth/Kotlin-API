@@ -20,12 +20,12 @@ class PageController {
         return "reception/index"
     }
 
-    @RequestMapping("/{module}")
+    @RequestMapping("/v/{module}")
     fun toModule(model: Model, @PathVariable("module") module: String): String {
-        return "reception/$module"
+        return "reception/$module/index"
     }
 
-    @RequestMapping("/{module}/{name}")
+    @RequestMapping("/v/{module}/{name}")
     fun toModuleName(model: Model, @PathVariable("module") module: String,
                      @PathVariable("name") name: String
     ): String {
@@ -42,7 +42,7 @@ class PageController {
     }
     @RequestMapping("/admin/{module}")
     fun backToModule(model: Model, @PathVariable("module") module: String): String {
-        return "back/$module"
+        return "back/$module/index"
     }
 
     @RequestMapping("/admin/{module}/{name}")

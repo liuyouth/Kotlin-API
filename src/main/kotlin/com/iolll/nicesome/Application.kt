@@ -9,11 +9,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @SpringBootApplication
 open class Application : WebMvcConfigurerAdapter(){
     override fun addCorsMappings(registry: CorsRegistry?) {
-        registry!!.addMapping("/**")
-                .allowCredentials(true)
-                .allowedHeaders("*")
-                .allowedOrigins("*")
-                .allowedMethods("*")
+//        registry!!.addMapping("/**")
+//                .allowCredentials(true)
+//                .allowedHeaders("*")
+//                .allowedOrigins("*")
+//                .allowedMethods("*")
     }
 }
 fun main(args: Array<String>) {

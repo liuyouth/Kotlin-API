@@ -3,7 +3,7 @@ package com.iolll.nicesome.controller
 import com.iolll.nicesome.db.UrlRecordRepository
 import com.iolll.nicesome.model.base.PageResult
 import com.iolll.nicesome.model.base.RBuilder
-import com.iolll.nicesome.model.base.RBuilder.Seccess
+import com.iolll.nicesome.model.base.RBuilder.seccess
 import com.iolll.nicesome.model.base.Result
 import com.iolll.nicesome.model.base.UrlRecord
 import org.springframework.beans.factory.annotation.Autowired
@@ -59,7 +59,7 @@ class UrlRecordController {
         var q = entityManager?.createNativeQuery(sql, UrlRecord::class.java)
         var list: List<UrlRecord> = q.resultList.toList() as List<UrlRecord>
 
-        return RBuilder.Seccess(list, total.toLong(), allPage)
+        return RBuilder.seccess(list, total.toLong(), allPage)
         //        return RBuilder.Seccess(list, data.totalElements, data.totalPages)
         //        val sort = Sort(sd, filedNames)
 //        val pageable = PageRequest(pageNum, size, sort)

@@ -54,6 +54,11 @@ dependencies {
     compile("mysql:mysql-connector-java")
     //providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
     testCompile('org.springframework.boot:spring-boot-starter-test')
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-redis
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-redis', version: '1.4.7.RELEASE'
+
+
+
     //Retrofit 网络请求
     compile "com.squareup.retrofit2:converter-gson:${retrofit2ConverterGsonVersion}"
     compile "com.squareup.retrofit2:converter-scalars:${retrofit2AConverterScalarsVersion}"

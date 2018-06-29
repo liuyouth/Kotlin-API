@@ -48,7 +48,10 @@ public class RedisTokenManager implements TokenManager {
             return null;
         }
         //使用userId和源token简单拼接成的token，可以增加加密措施
-        long userId = Long.parseLong(param[0]);
+        String p = param[0];
+        if ("undefined".equals(p))
+            return null;
+        long userId = Long.parseLong(p);
         String token = param[1];
         return new TokenModel(userId, token);
     }

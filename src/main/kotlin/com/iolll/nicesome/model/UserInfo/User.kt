@@ -1,4 +1,4 @@
-package com.iolll.nicesome.model.base
+package com.iolll.nicesome.model.UserInfo
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
@@ -11,7 +11,7 @@ data class User(@Id @GeneratedValue(strategy = GenerationType.AUTO)
                 var phone: String? = "",
                 var email: String? = "",
                 var address: String? = "",
-                @JsonIgnore
+//                @JsonIgnore
                 var pwd: String = "",
                 @JsonIgnore
                 var salt: String = ""

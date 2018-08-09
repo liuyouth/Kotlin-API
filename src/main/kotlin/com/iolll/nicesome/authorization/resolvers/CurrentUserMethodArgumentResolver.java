@@ -4,7 +4,7 @@ package com.iolll.nicesome.authorization.resolvers;
 import com.iolll.nicesome.authorization.annotation.CurrentUser;
 import com.iolll.nicesome.config.Constants;
 import com.iolll.nicesome.db.UserRepository;
-import com.iolll.nicesome.model.base.User;
+import com.iolll.nicesome.model.UserInfo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;

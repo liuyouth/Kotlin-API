@@ -1,9 +1,7 @@
 package com.iolll.nicesome.db
 
-import com.iolll.nicesome.model.base.User
-import org.springframework.data.jpa.repository.Query
+import com.iolll.nicesome.model.UserInfo.User
 import org.springframework.data.repository.CrudRepository
-import org.springframework.data.repository.query.Param
 
 interface UserRepository : CrudRepository<User, Long> {
     fun findByName(name: String): List<User>

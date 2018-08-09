@@ -1,21 +1,12 @@
 package com.iolll.nicesome.controller
 
-import com.google.gson.Gson
 import com.iolll.nicesome.OkHttpUtil.get
-import com.iolll.nicesome.model.base.User
-import com.iolll.nicesome.db.UserRepository
 import com.iolll.nicesome.model.base.Result
 import com.iolll.nicesome.model.base.SearchResult
-import com.iolll.nicesome.model.base.UrlRecord
 import com.iolll.nicesome.model.entity.EchoSong
+import com.iolll.nicesome.model.entity.Order
 import com.iolll.nicesome.net.DataManager
-import io.reactivex.functions.Consumer
-import okhttp3.OkHttpClient
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Controller
-import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
-import java.util.HashMap
 
 @RestController
 @RequestMapping("/EchoSong/")
@@ -116,4 +107,20 @@ class EchoAPIController {
         })
         return result
     }
+
+    @GetMapping("/getOrders")
+    fun readString(): SearchResult<ArrayList<Order>>{
+        var result: SearchResult<ArrayList<Order>> = SearchResult();
+        val orders = java.util.ArrayList<Order>()
+        for (i in 0..29) {
+            val order = Order(i, "备注$i", "订单号$i$i$i$i", "酒店名称$i")
+
+            orders.add(order)
+        }
+        result.setData(orders);
+        result.setCode(200);
+        return result;
+    }
+
+
 }
